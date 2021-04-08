@@ -10,6 +10,7 @@ int pwm_value;
 int voltageOut;
 int freq;
 
+
 void setup() {
   pinMode(PWM_PIN, INPUT);
   Serial.begin(115200);
@@ -33,6 +34,9 @@ void loop() {
   voltageOut = map(freq, 1600, 2500, 255, 0);
   Serial.print(F("Voltage: "));
   Serial.println(voltageOut);
+
+  // Break if voltage is greater than 3.2V
+  if(voltageOut > 163){Serial.print(F("Warning ")); for (;;) {}} 
   
  // Test to make sure voltage is correct
  // analogWrite(pinOut,voltageOut) //output voltage on pinOut from 0V to 5V. 
