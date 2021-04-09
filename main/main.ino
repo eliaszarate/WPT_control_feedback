@@ -31,7 +31,7 @@ void loop() {
   }
 
   // Map voltage ouput with input frequency
-  voltageOut = map(freq, 1600, 2500, 255, 0);
+  voltageOut = map(freq, 1600, 2500, 169, 0);
   Serial.print(F("Voltage: "));
   Serial.println(voltageOut);
 
