@@ -19,7 +19,8 @@ void setup() {
 void loop() {
   // Calculate frequency from PWM input
   pwm_value = pulseIn(PWM_PIN, HIGH);
-  freq = (1/(pwm_value * pow(10, -6)))/2;
+  //freq = (1/(pwm_value * pow(10, -6)))/2;
+  freq = 2800;
   Serial.print(F("Freq: "));
   Serial.println(freq);
 
@@ -31,13 +32,14 @@ void loop() {
   }
 
   // Map voltage ouput with input frequency
-  voltageOut = map(freq, 1600, 2500, 255, 0);
+  voltageOut = map(freq, 1600, 2500, 167, 0);
+  float volt = (160 * 5) / 1023; 
   Serial.print(F("Voltage: "));
-  Serial.println(voltageOut);
+  Serial.println(volt);
 
   // Break if voltage is greater than 3.2V
-  if(voltageOut > 163){Serial.print(F("Warning ")); for (;;) {}} 
+  if(voltageOut > 168){Serial.print(F("Warning ")); for (;;) {}} 
   
  // Test to make sure voltage is correct
- // analogWrite(pinOut,voltageOut) //output voltage on pinOut from 0V to 5V. 
+  analogWrite(pinOut,160); //output voltage on pinOut from 0V to 5V. 
 }
