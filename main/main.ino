@@ -4,8 +4,15 @@
  * feedback testing
  */
 
-byte PWM_PIN = 3;
+// Input to the Arduino (freq),  
+// Place on pin 49 of the DSP
+byte PWM_PIN = 3; 
+
+// Output of the Arduino (volt).
+// Place on analog pin 15 of DSP
 byte pinOut = 10;
+
+// Globals
 int pwm_value;
 int voltageOut;
 int freq;
@@ -19,31 +26,27 @@ void setup() {
 void loop() {
   // Calculate frequency from PWM input
   pwm_value = pulseIn(PWM_PIN, HIGH);
-  //freq = (1/(pwm_value * pow(10, -6)))/2;
-  freq = 2800;
+  freq = (1/(pwm_value * pow(10, -6)))/2;
+  //freq = 600;
+
+   // Saturate, avoid negative values
+  if(freq < 600){
+    freq = 600;
+  } else if (freq > 1900){
+    freq = 1900;    
+  }
   Serial.print(F("Freq: "));
   Serial.println(freq);
 
-  // Saturate, avoid negative values
-  if(freq < 1600){
-    freq = 1600;
-  } else if (freq > 2500){
-    freq = 2500;    
-  }
-
   // Map voltage ouput with input frequency
-<<<<<<< HEAD
-  voltageOut = map(freq, 1600, 2500, 167, 0);
-  float volt = (160 * 5) / 1023; 
-=======
-  voltageOut = map((int)freq, 1600, 2500, 0, 169);
->>>>>>> f52647ff5f1643ffd7a1b612b5726a9900db4f5b
+  voltageOut = map(freq, 600, 1900, 0, 162);
+  float volt = (voltageOut * 5.0) / 255.0; 
   Serial.print(F("Voltage: "));
   Serial.println(volt);
 
   // Break if voltage is greater than 3.2V
-  if(voltageOut > 168){Serial.print(F("Warning ")); for (;;) {}} 
+  if(voltageOut > 162){Serial.print(F("Warning ")); for (;;) {}} 
   
  // Test to make sure voltage is correct
-  analogWrite(pinOut,160); //output voltage on pinOut from 0V to 5V. 
+  analogWrite(pinOut,voltageOut); //output voltage on pinOut from 0V to 5V. 
 }
