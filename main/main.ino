@@ -38,15 +38,13 @@ void loop() {
   Serial.print(F("Freq: "));
   Serial.println(freq);
 
-  // Map voltage ouput with input frequency
-<<<<<<< HEAD
+  // Map voltage output with input frequency
   voltageOut = map(freq, 600, 1900, 162, 0);
   float volt = (voltageOut * 5.0) / 255.0; 
-=======
+  
   voltageOut = map(freq, 1600, 2500, 167, 0);
   float volt = (160 * 5) / 1023; 
   voltageOut = map((int)freq, 1600, 2500, 0, 169);
->>>>>>> f7629dc752326b1dd139aadd3f09854f72e90e16
   Serial.print(F("Voltage: "));
   Serial.println(volt);
 
