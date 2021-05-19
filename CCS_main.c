@@ -306,8 +306,7 @@ void main(void){
         Freq = PID_Output; // Placed directly in the period change, takes a few microseconds
 
 // Saturate Frequency
-
-        if(Freq < 600){ // from 1600
+        if(Freq < 600){ 
             Freq  = 600;
         }
         else if(Freq > 2500){
